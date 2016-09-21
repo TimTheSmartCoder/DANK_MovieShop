@@ -15,10 +15,13 @@ namespace MovieShopBackend.Contexts
             
         }
 
-        public DbSet<Genre> Genres;
-        public DbSet<Movie> Movies;
-        public DbSet<Address> Addresses;
-        public DbSet<Customer> Customers;
-        public DbSet<Order> Orders;
+        /// <summary>
+        /// Creating and naming the tubles that wil be awailable in the database
+        /// </summary>
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

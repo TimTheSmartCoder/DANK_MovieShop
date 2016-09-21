@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace MovieShopBackend.Managers
             {
                 return db.Genres.ToList();
             }
-            
+
         }
 
         public Genre ReadOne(int id)
@@ -39,12 +40,37 @@ namespace MovieShopBackend.Managers
 
         public Genre Update(Genre t)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                Genre old = db.Genres.FirstOrDefault(x => x.Id == t.Id);
+
+                if (old == null)
+                {
+                    return null;
+                }
+                old.Name = t.Name;
+                db.Entry(old).State = System.Data.Entity.EntityState.Modified;
+
+                db.SaveChanges();
+                return t;
+            }
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                Genre delete = db.Genres.FirstOrDefault(x => x.Id == id);
+
+                if (delete == null)
+                {
+                    return false;
+                }
+                db.Entry(delete).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+
+                return true;
+            }
         }
     }
 }
