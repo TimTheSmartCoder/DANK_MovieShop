@@ -8,47 +8,49 @@ using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Managers
 {
-    internal class OrderManager : IManager<Order>
+    class CustomerManager : IManager<Customer>
     {
-        public Order Create(Order t)
+        public Customer Create(Customer t)
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                db.Orders.Add(t);
+                db.Customers.Add(t);
                 db.SaveChanges();
                 return t;
             }
         }
 
-        public List<Order> ReadAll()
+        public List<Customer> ReadAll()
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                return db.Orders.ToList();
+                return db.Customers.ToList();                
             }
         }
 
-        public Order ReadOne(int id)
+        public Customer ReadOne(int id)
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                return db.Orders.FirstOrDefault(x => x.Id == id);
+                return db.Customers.FirstOrDefault(x => x.Id == id);
             }
         }
 
-        public Order Update(Order t)
+        public Customer Update(Customer t)
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                Order old = db.Orders.FirstOrDefault(x => x.Id == t.Id);
+                Customer old = db.Customers.FirstOrDefault(x => x.Id == t.Id);
 
                 if (old == null)
                 {
                     return null;
                 }
-                old.Movies = t.Movies;
-                old.Customer = t.Customer;
-                old.Date = t.Date;
+                old.FirstName = t.FirstName;
+                old.LastName = t.LastName;
+                old.Address = t.Address;
+                old.Email = t.Email;
+                old.Order = t.Order;
 
                 db.Entry(old).State = System.Data.Entity.EntityState.Modified;
 
@@ -61,7 +63,7 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                Order delete = db.Orders.FirstOrDefault(x => x.Id == id);
+                Customer delete = db.Customers.FirstOrDefault(x => x.Id == id);
 
                 if (delete == null)
                 {

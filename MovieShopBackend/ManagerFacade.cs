@@ -16,5 +16,19 @@ namespace MovieShopBackend
             return new GenreManager();
         }
 
+        public IManager<Customer> GetCustomerManager()
+        {
+            return new CustomerManager();
+        }
+
+        public IManager<Movie> GetMovieManager()
+        {
+            return new MovieManager();
+        }
+
+        public IManager<Order> GetOrderManager()
+        {
+            return new OrderManager();
+        }
     }
 }

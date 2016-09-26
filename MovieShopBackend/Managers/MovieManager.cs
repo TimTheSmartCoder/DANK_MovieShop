@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Managers
@@ -11,27 +12,70 @@ namespace MovieShopBackend.Managers
     {
         public Movie Create(Movie t)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                db.Customers.Add(t);
+                db.SaveChanges();
+                return t;
+            }
         }
 
         public List<Movie> ReadAll()
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                return db.Movies.ToList();
+            }
         }
 
         public Movie ReadOne(int id)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                return db.Movies.FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public Movie Update(Movie t)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                Movie old = db.Movies.FirstOrDefault(x => x.Id == t.Id);
+
+                if (old == null)
+                {
+                    return null;
+                }
+                old.Genre = t.Genre;
+                old.ImageUrl = t.ImageUrl;
+                old.Orders = t.Orders;
+                old.Price = t.Price;
+                old.Title = t.Title;
+                old.Trailer = t.Trailer;
+                old.Year = t.Year;
+
+                db.Entry(old).State = System.Data.Entity.EntityState.Modified;
+
+                db.SaveChanges();
+                return t;
+            }
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            using (MovieShopContext db = new MovieShopContext())
+            {
+                Movie delete = db.Movies.FirstOrDefault(x => x.Id == id);
+
+                if (delete == null)
+                {
+                    return false;
+                }
+                db.Entry(delete).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+
+                return true;
+            }
         }
     }
 }

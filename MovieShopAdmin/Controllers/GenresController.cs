@@ -98,7 +98,7 @@ namespace MovieShopAdmin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Genre genre = _manager.ReadOne(id);
-            _manager.Delete(id);
+            _manager.Delete(genre.Id);
             return RedirectToAction("Index");
         }
 
