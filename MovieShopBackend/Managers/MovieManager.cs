@@ -14,7 +14,7 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                db.Customers.Add(t);
+                db.Movies.Add(t);
                 db.SaveChanges();
                 return t;
             }
