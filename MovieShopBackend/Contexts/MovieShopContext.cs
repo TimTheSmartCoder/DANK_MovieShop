@@ -12,7 +12,7 @@ namespace MovieShopBackend.Contexts
     {
         public MovieShopContext() : base()
         {
-            
+            Database.SetInitializer<MovieShopContext>(new DropCreateDatabaseIfModelChanges<MovieShopContext>());
         }
 
         /// <summary>
