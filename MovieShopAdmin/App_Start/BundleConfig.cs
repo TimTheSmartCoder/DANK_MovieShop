@@ -19,12 +19,29 @@ namespace MovieShopAdmin
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            /**bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/site.css"));**/
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/metisMenu.js",
+                      "~/Scripts/raphael.js",
+                      "~/Scripts/morris.js",
+                      "~/Scripts/sb-admin-2.js"
+                      ));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/metisMenu.css",
+                      "~/Content/sb-admin-2.css",
+                      "~/Content/morris.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/site.css"));
         }
     }
