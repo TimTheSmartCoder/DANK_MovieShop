@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MovieShopAdmin.Models.Home;
 using MovieShopBackend;
 using MovieShopBackend.Entities;
 
@@ -10,19 +11,17 @@ namespace MovieShopAdmin.Controllers
 {
     public class HomeController : Controller
     {
-        private IManager<Genre> _gm = new ManagerFacade().GetGenreManager();
+        private IManager<Order> _OrdersManager = new ManagerFacade().GetOrderManager();
+        private IManager<Customer> _CustomersManager = new ManagerFacade().GetCustomerManager();
+
         public ActionResult Index()
         {
-            if (!_gm.ReadAll().Any())
-            {
-                _gm.Create(new Genre() {Name = "Tim"});
-            }
-            List<Genre> allGenres = _gm.ReadAll();
-            foreach (Genre genre in allGenres)
-            {
-                Console.WriteLine(genre.Name);
-            }
-            return View(_gm.ReadAll());
+            HomeViewModel homeViewModel = new HomeViewModel();
+            homeViewModel.LastFiveOrders = (this._OrdersManager.ReadAll().Count <= 5) ? this._OrdersManager.ReadAll() : this._OrdersManager.ReadAll().GetRange(0, 5);
+            homeViewModel.NumberOfCustomers = this._CustomersManager.ReadAll().Count;
+            homeViewModel.NumberOfOrders = this._OrdersManager.ReadAll().Count;
+            
+            return View(homeViewModel);
         }
 
         public ActionResult About()
