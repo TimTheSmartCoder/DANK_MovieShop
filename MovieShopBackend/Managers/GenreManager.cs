@@ -25,6 +25,11 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
+                //--- Debug code.
+                //SET breakpoint her under -->
+                var connection = db.Database.Connection.ToString();
+                //--- Debug code.
+
                 return db.Genres.ToList();
             }
 
