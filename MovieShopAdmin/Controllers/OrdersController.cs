@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MovieShopBackend;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 
@@ -13,12 +14,12 @@ namespace MovieShopAdmin.Controllers
 {
     public class OrdersController : Controller
     {
-        private MovieShopContext db = new MovieShopContext();
+        private IManager<Order> _manager = new ManagerFacade().GetOrderManager();
 
         // GET: Orders
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            return View(this._manager.ReadAll());
         }
 
         // GET: Orders/Details/5
@@ -28,7 +29,7 @@ namespace MovieShopAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = this._manager.ReadOne((int)id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,7 @@ namespace MovieShopAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
+                this._manager.Create(order);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +66,7 @@ namespace MovieShopAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = this._manager.ReadOne((int)id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -83,8 +83,7 @@ namespace MovieShopAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
+                this._manager.Update(order);
                 return RedirectToAction("Index");
             }
             return View(order);
@@ -97,7 +96,7 @@ namespace MovieShopAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = this._manager.ReadOne((int)id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -110,9 +109,7 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
+            this._manager.Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -120,7 +117,6 @@ namespace MovieShopAdmin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
             }
             base.Dispose(disposing);
         }
