@@ -13,7 +13,8 @@ namespace MovieShopBackend.Entities
         public string Title { get; set; }
 
         [Required]
-        public DateTime Year { get; set; }
+        [Range(0, 3000)]
+        public int Year { get; set; }
 
         [Required]
         public double Price { get; set; }
