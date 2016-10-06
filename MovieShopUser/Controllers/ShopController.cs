@@ -19,21 +19,14 @@ namespace MovieShopUser.Controllers
 
         public ShopController()
         {
-            _movieManager.Create(new Movie
-            {
-                Genre = new Genre{ Name = "Action"},
-                Id = 1,
-                ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
-                Title = "A Smashing Experience",
-                Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
-                Price = 100000,
-                Year = 2016
-
-            });
+            CreateMovies();
+            
 
             movies = _movieManager.ReadAll();
             genres = _GenreManager.ReadAll();
         }
+
+        
 
         [HttpGet]
         public ActionResult Index()
@@ -45,6 +38,46 @@ namespace MovieShopUser.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Movie movie = _movieManager.ReadOne(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(movie);
+        }
+
+
+        private void CreateMovies()
+        {
+            _movieManager.Create(new Movie
+            {
+                Genre = new Genre { Name = "Action" },
+                Id = 1,               
+                ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
+                Title = "A Smashing Experience",
+                Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
+                Price = 100000,
+                Year = 2016
+
+            });
+
+            _movieManager.Create(new Movie
+            {
+                Genre = new Genre { Name = "Action" },
+                Id = 2,
+                ImageUrl = "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
+                Title = "Isengard Tour Guid!",
+                Trailer = "https://www.youtube.com/watch?v=uE-1RPDqJAY",
+                Price = 100000,
+                Year = 2016
+            });
+
         }
     }
 }
