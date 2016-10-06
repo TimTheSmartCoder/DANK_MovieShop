@@ -19,6 +19,18 @@ namespace MovieShopUser.Controllers
 
         public ShopController()
         {
+            _movieManager.Create(new Movie
+            {
+                Genre = new Genre{ Name = "Action"},
+                Id = 1,
+                ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
+                Title = "A Smashing Experience",
+                Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
+                Price = 100000,
+                Year = 2016
+
+            });
+
             movies = _movieManager.ReadAll();
             genres = _GenreManager.ReadAll();
         }
