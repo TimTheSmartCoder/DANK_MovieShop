@@ -3,75 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Managers
 {
-    internal class OrderManager : IManager<Order>
+    class OrderManager : AbstractManager<Order>
     {
-        public Order Create(Order t)
+        protected override List<Order> ReadAll(MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                db.Orders.Add(t);
-                db.SaveChanges();
-                return t;
-            }
+            return movieShopContext.Set<Order>()
+                .Include(x => x.Customer)
+                .Include(x => x.Movies)
+                .ToList();
         }
 
-        public List<Order> ReadAll()
+        protected override Order ReadOne(int id, MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                return db.Orders.ToList();
-            }
-        }
-
-        public Order ReadOne(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                return db.Orders.FirstOrDefault(x => x.Id == id);
-            }
-        }
-
-        public Order Update(Order t)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Order old = db.Orders.FirstOrDefault(x => x.Id == t.Id);
-
-                if (old == null)
-                {
-                    return null;
-                }
-                old.Movies = t.Movies;
-                old.Customer = t.Customer;
-                old.Date = t.Date;
-
-                db.Entry(old).State = System.Data.Entity.EntityState.Modified;
-
-                db.SaveChanges();
-                return t;
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Order delete = db.Orders.FirstOrDefault(x => x.Id == id);
-
-                if (delete == null)
-                {
-                    return false;
-                }
-                db.Entry(delete).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
-
-                return true;
-            }
+            return movieShopContext.Set<Order>()
+                .Include(x => x.Customer)
+                .Include(x => x.Movies)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }
