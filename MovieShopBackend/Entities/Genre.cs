@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace MovieShopBackend.Entities
 {
     public class Genre : AbstractEntity
-    {  
-        [Required]    
+    {
+        [Required]
         public string Name { get; set; }
+
         public List<Movie> Movies { get; set; }
     }
 }

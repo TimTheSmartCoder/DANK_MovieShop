@@ -26,8 +26,10 @@ namespace MovieShopBackend.Entities
         [Required]
         public string Trailer { get; set; }
 
+        public int GenreId { get; set; }
+
         public Genre Genre { get; set; }
 
-        public List<Order> Orders { get; set; }       
+        public List<Order> Orders { get; set; }
     }
 }

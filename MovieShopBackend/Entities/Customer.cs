@@ -20,7 +20,7 @@ namespace MovieShopBackend.Entities
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        
+
         public List<Order> Order { get; set; }
     }
 }
