@@ -21,6 +21,11 @@ namespace MovieShopBackend
             return new CustomerManager();
         }
 
+        public IManager<Address> GetAddressManager()
+        {
+            return new AddressManager();
+        }
+
         public IManager<Movie> GetMovieManager()
         {
             return new MovieManager();

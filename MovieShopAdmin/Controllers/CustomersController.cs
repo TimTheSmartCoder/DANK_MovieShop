@@ -6,16 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MovieShopAdmin.Models.Customers;
 using MovieShopBackend;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
+using AutoMapper;
 
 namespace MovieShopAdmin.Views
 {
     public class CustomersController : Controller
     {
         private IManager<Customer> _manager = new ManagerFacade().GetCustomerManager();
-
+        
         // GET: Customers
         public ActionResult Index()
         {
@@ -45,15 +47,21 @@ namespace MovieShopAdmin.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Email")] Customer customer)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] PostCustomersCreateViewModel postCustomersCreateViewModel)
         {
             if (ModelState.IsValid)
             {
-                _manager.Create(customer);                
+                //Use AutoMapper to copy properties from ViewModel to Entities.
+                Customer customer = Mapper.Map<Customer>(postCustomersCreateViewModel);
+                Address address = Mapper.Map<Address>(postCustomersCreateViewModel);
+                customer.Address = address;
+                
+                _manager.Create(customer);
+                             
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(postCustomersCreateViewModel);
         }
 
         // GET: Customers/Edit/5

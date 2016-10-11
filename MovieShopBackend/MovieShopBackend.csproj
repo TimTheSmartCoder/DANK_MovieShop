@@ -60,6 +60,7 @@
     <Compile Include="IManager.cs" />
     <Compile Include="ManagerFacade.cs" />
     <Compile Include="Managers\AbstractManager.cs" />
+    <Compile Include="Managers\AddressManager.cs" />
     <Compile Include="Managers\CustomerManager.cs" />
     <Compile Include="Managers\GenreManager.cs" />
     <Compile Include="Managers\MovieManager.cs" />

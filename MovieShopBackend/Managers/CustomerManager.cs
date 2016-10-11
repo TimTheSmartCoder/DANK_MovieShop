@@ -16,6 +16,7 @@ namespace MovieShopBackend.Managers
         {
             return movieShopContext.Set<Customer>()
                 .Include(x => x.Order)
+                .Include(x => x.Address)
                 .ToList();
         }
 
@@ -23,6 +24,7 @@ namespace MovieShopBackend.Managers
         {
             return movieShopContext.Set<Customer>()
                 .Include(x => x.Order)
+                .Include(x => x.Address)
                 .FirstOrDefault(x => x.Id == id);
         }
     }
