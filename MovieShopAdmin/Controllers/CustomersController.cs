@@ -12,11 +12,12 @@ using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 using AutoMapper;
 
-namespace MovieShopAdmin.Views
+namespace MovieShopAdmin.Controllers
 {
     public class CustomersController : Controller
     {
         private IManager<Customer> _manager = new ManagerFacade().GetCustomerManager();
+        private IManager<Address> _addressManager = new ManagerFacade().GetAddressManager();
         
         // GET: Customers
         public ActionResult Index()
@@ -73,7 +74,12 @@ namespace MovieShopAdmin.Views
             {
                 return HttpNotFound();
             }
-            return View(customer);
+
+            //Map our information from entities to ViewModel.
+            PostCustomerEditViewModel postCustomerEditViewModel = Mapper.Map<PostCustomerEditViewModel>(customer);
+            postCustomerEditViewModel = Mapper.Map(customer.Address, postCustomerEditViewModel);
+
+            return View(postCustomerEditViewModel);
         }
 
         // POST: Customers/Edit/5
@@ -81,14 +87,21 @@ namespace MovieShopAdmin.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] PostCustomerEditViewModel postCustomerEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                _manager.Update(customer);                
+                //Use AutoMapper to copy properties from ViewModel to Entities.
+                Customer customer = Mapper.Map<Customer>(postCustomerEditViewModel);
+                Address address = Mapper.Map<Address>(postCustomerEditViewModel);
+                customer.Address = address;
+
+                _manager.Update(customer);
+                _addressManager.Update(address);
+                              
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View(postCustomerEditViewModel);
         }
 
         // GET: Customers/Delete/5
