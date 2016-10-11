@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MovieShopAdmin.Models.Customers;
 using MovieShopBackend;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
+using MovieShopBackend.TestCode;
 
 namespace MovieShopAdmin.Views
 {
@@ -73,21 +75,30 @@ namespace MovieShopAdmin.Views
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email")] Customer customer)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] PostCustomerCreateViewModel postCustomerCreateViewModel)
         {
             if (ModelState.IsValid)
             {
-                _manager.Update(customer);                
+                //Use auto mapper to split the PostCustomerCreateViewModel into Customer and Address.
+                Customer customer = AutoMapper.Mapper.Map<Customer>(postCustomerCreateViewModel);
+                Address address = AutoMapper.Mapper.Map<Address>(postCustomerCreateViewModel);
+
+                //Add reference to Address in customer.
+                customer.Address = address;
+
+                _manager.Update(customer);
+
                 return RedirectToAction("Index");
             }
-            return View(customer);
+
+            return View(postCustomerCreateViewModel);
         }
 
         // GET: Customers/Delete/5
         public ActionResult Delete(int id)
         {
-            
             Customer customer = _manager.ReadOne(id);
+
             if (customer == null)
             {
                 return HttpNotFound();

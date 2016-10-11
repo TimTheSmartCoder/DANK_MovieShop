@@ -56,13 +56,16 @@
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Order.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="ManagerFacade.cs" />
+    <Compile Include="Managers\AbstractManager.cs" />
     <Compile Include="Managers\CustomerManager.cs" />
     <Compile Include="Managers\GenreManager.cs" />
     <Compile Include="Managers\MovieManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCode\EntityTestRelationShip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

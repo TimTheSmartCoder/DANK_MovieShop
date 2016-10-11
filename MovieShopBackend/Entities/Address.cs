@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 namespace MovieShopBackend.Entities
 {
     public class Address : AbstractEntity
-    {   
+    {
+        [Required]
+        public Customer Customer { get; set; }
+
         [Required]
         public string StreetName { get; set; }
 
@@ -20,6 +23,5 @@ namespace MovieShopBackend.Entities
 
         [Required]
         public string Country { get; set; }
-        
     }
 }
