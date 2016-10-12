@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using MovieShopBackend.Entities;
 
-namespace MovieShopBackend.Entities
+namespace MovieShopAdmin.Models.Movies
 {
-    public class Movie : AbstractEntity
+    public class MoviesCreateViewModel
     {
+        [Required]
         public string Title { get; set; }
 
+        [Required]
+        [Range(0, 3000)]
         public int Year { get; set; }
 
+        [Required]
         public double Price { get; set; }
 
+        [Required]
+        [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
 
+        [Required]
         public string Trailer { get; set; }
 
+        [Required]
         public int GenreId { get; set; }
 
-        public Genre Genre { get; set; }
-
-        public List<Order> Orders { get; set; }
+        public SelectList Genres { get; set; }
     }
 }

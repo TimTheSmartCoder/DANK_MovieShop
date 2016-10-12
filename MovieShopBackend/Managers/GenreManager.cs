@@ -4,80 +4,26 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Managers
 {
-    class GenreManager : IManager<Genre>
+    class GenreManager : AbstractManager<Genre>
     {
-        public Genre Create(Genre t)
+        protected override List<Genre> ReadAll(MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                db.Genres.Add(t);
-                db.SaveChanges();
-                return t;
-            }
+            return movieShopContext.Set<Genre>()
+                .Include(x => x.Movies)
+                .ToList();
         }
 
-        public List<Genre> ReadAll()
+        protected override Genre ReadOne(int id, MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                //--- Debug code.
-                //SET breakpoint her under -->
-                var connection = db.Database.Connection.ToString();
-                //--- Debug code.
-
-                return db.Genres.ToList();
-            }
-
-        }
-
-        public Genre ReadOne(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Genre genre = db.Genres.FirstOrDefault(x => x.Id == id);
-
-                return genre;
-            }
-        }
-
-        public Genre Update(Genre t)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Genre old = db.Genres.FirstOrDefault(x => x.Id == t.Id);
-
-                if (old == null)
-                {
-                    return null;
-                }
-                old.Name = t.Name;
-                db.Entry(old).State = System.Data.Entity.EntityState.Modified;
-
-                db.SaveChanges();
-                return t;
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Genre delete = db.Genres.FirstOrDefault(x => x.Id == id);
-
-                if (delete == null)
-                {
-                    return false;
-                }
-                db.Entry(delete).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
-
-                return true;
-            }
+            return movieShopContext.Set<Genre>()
+                .Include(x => x.Movies)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }

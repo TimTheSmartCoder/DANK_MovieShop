@@ -26,14 +26,13 @@ namespace MovieShopAdmin.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Order order = this._manager.ReadOne((int)id);
+
             if (order == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(order);
         }
 
@@ -50,6 +49,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Date")] Order order)
         {
+            if (order == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 this._manager.Create(order);
@@ -63,14 +65,13 @@ namespace MovieShopAdmin.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Order order = this._manager.ReadOne((int)id);
+
             if (order == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(order);
         }
 
@@ -81,11 +82,15 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Date")] Order order)
         {
+            if (order == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 this._manager.Update(order);
                 return RedirectToAction("Index");
             }
+
             return View(order);
         }
 
@@ -93,14 +98,13 @@ namespace MovieShopAdmin.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Order order = this._manager.ReadOne((int)id);
+
             if (order == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(order);
         }
 
@@ -110,6 +114,7 @@ namespace MovieShopAdmin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             this._manager.Delete(id);
+
             return RedirectToAction("Index");
         }
 

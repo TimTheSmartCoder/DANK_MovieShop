@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 namespace MovieShopBackend.Entities
 {
     public class Address : AbstractEntity
-    {   
-        [Required]
+    {
+        public Customer Customer { get; set; }
+
         public string StreetName { get; set; }
 
-        [Required]
         public int StreetNumber { get; set; }
 
-        [Required]
         public int ZipCode { get; set; }
 
-        [Required]
         public string Country { get; set; }
-        
     }
 }
+

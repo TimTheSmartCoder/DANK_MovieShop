@@ -3,77 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Managers
 {
-    class CustomerManager : IManager<Customer>
+    class CustomerManager : AbstractManager<Customer>
     {
-        public Customer Create(Customer t)
+        protected override List<Customer> ReadAll(MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                db.Customers.Add(t);
-                db.SaveChanges();
-                return t;
-            }
+            return movieShopContext.Set<Customer>()
+                .Include(x => x.Order)
+                .Include(x => x.Address)
+                .ToList();
         }
 
-        public List<Customer> ReadAll()
+        protected override Customer ReadOne(int id, MovieShopContext movieShopContext)
         {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                return db.Customers.ToList();                
-            }
-        }
-
-        public Customer ReadOne(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                return db.Customers.FirstOrDefault(x => x.Id == id);
-            }
-        }
-
-        public Customer Update(Customer t)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Customer old = db.Customers.FirstOrDefault(x => x.Id == t.Id);
-
-                if (old == null)
-                {
-                    return null;
-                }
-                old.FirstName = t.FirstName;
-                old.LastName = t.LastName;
-                old.Address = t.Address;
-                old.Email = t.Email;
-                old.Order = t.Order;
-
-                db.Entry(old).State = System.Data.Entity.EntityState.Modified;
-
-                db.SaveChanges();
-                return t;
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            using (MovieShopContext db = new MovieShopContext())
-            {
-                Customer delete = db.Customers.FirstOrDefault(x => x.Id == id);
-
-                if (delete == null)
-                {
-                    return false;
-                }
-                db.Entry(delete).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
-
-                return true;
-            }
+            return movieShopContext.Set<Customer>()
+                .Include(x => x.Order)
+                .Include(x => x.Address)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }
