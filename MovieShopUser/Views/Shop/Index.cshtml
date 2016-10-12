@@ -26,6 +26,7 @@
                                     Genre: @movie.Genre.Name<br/>Year @movie.Year <br/>Price @movie.Price
                                 </p>
                                 <a href="@movie.Trailer" class="btn btn-primary btn-block"><i class="fa fa-eye"></i> Watch Trailer</a>
+                                <a href="@Url.Action("Add", "Cart", new {prevUrl = "/Shop", id = movie.Id})" class="btn btn-primary btn-block"><i class="fa fa-eye"></i> Add to Cart</a>
                             </div>
                         </article>
                     </a>

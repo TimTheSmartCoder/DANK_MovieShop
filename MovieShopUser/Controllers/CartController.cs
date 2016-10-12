@@ -15,7 +15,7 @@ namespace MovieShopUser.Controllers
     public class CartController : Controller
     {
         private ManagerFacade facade = new ManagerFacade();
-        private IManager<Movie> movieManager;
+        private IManager<Movie> movieManager = new ManagerFacade().GetMovieManager();
 
 
         private CartManager manager = new CartManager();
@@ -24,7 +24,7 @@ namespace MovieShopUser.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            movieManager = facade.GetMovieManager();
+            
             Session["Manager"] = manager;
             manager.Add(new Movie
             {
