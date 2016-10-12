@@ -5,18 +5,26 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
+using MovieShopBackend;
 using MovieShopBackend.Entities;
+
 using MovieShopUser.Models.Cart;
 
 namespace MovieShopUser.Controllers
 {
     public class CartController : Controller
     {
+        private ManagerFacade facade = new ManagerFacade();
+        private IManager<Movie> movieManager;
+
+
         private CartManager manager = new CartManager();
+        
 
         // GET: Cart
         public ActionResult Index()
         {
+            movieManager = facade.GetMovieManager();
             Session["Manager"] = manager;
             manager.Add(new Movie
             {
@@ -51,8 +59,9 @@ namespace MovieShopUser.Controllers
 
 
         [ActionName("Add")]
-        public ActionResult AddMovie(string prevUrl, Movie m)
+        public ActionResult AddMovie(string prevUrl, int id)
         {
+            Movie m = movieManager.ReadOne(id);
             if (m != null)
             {
                 manager.Add(m);
