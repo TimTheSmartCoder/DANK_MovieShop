@@ -35,3 +35,7 @@ body {padding-top: 80px;}
 .footer-links li {display: inline-block;}
 .footer a {font-weight: 500; color: inherit;}
 .footer-links li + li {margin-left: 1rem;}
+
+.link:hover {
+text-decoration: none;
+}

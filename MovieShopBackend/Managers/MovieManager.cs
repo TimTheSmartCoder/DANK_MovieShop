@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
+using System.Data.Entity;
 
 namespace MovieShopBackend.Managers
 {
