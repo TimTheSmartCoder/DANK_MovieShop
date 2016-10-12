@@ -19,7 +19,7 @@ namespace MovieShopUser.Controllers
 
         public ShopController()
         {
-            CreateMovies();
+            Populate();
             
 
             movies = _movieManager.ReadAll();
@@ -53,12 +53,29 @@ namespace MovieShopUser.Controllers
         }
 
 
-        private void CreateMovies()
+        private void Populate()
         {
+            _GenreManager.Create(new Genre
+            {
+                Id = 1,
+                Name = "All"
+            });
+            _GenreManager.Create(new Genre
+            {
+                Id = 2,
+                Name = "Action"
+            });
+            _GenreManager.Create(new Genre
+            {
+                Id = 3,
+                Name = "DickJokes"
+            });
+
+
             _movieManager.Create(new Movie
             {
-                Genre = new Genre { Name = "Action" },
-                Id = 1,               
+                Genre = _GenreManager.ReadOne(1),
+                Id = 2,               
                 ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
                 Title = "A Smashing Experience",
                 Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
@@ -69,8 +86,8 @@ namespace MovieShopUser.Controllers
 
             _movieManager.Create(new Movie
             {
-                Genre = new Genre { Name = "Action" },
-                Id = 2,
+                Genre = _GenreManager.ReadOne(1),
+                Id = 3,
                 ImageUrl = "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
                 Title = "Isengard Tour Guid!",
                 Trailer = "https://www.youtube.com/watch?v=uE-1RPDqJAY",

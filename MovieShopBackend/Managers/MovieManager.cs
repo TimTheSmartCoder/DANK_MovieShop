@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
+using System.Data.Entity;
 
 namespace MovieShopBackend.Managers
 {
+
     class MovieManager : IManager<Movie>
     {
+    
         public Movie Create(Movie t)
         {
             using (MovieShopContext db = new MovieShopContext())
@@ -24,7 +27,7 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                return db.Movies.ToList();
+                return db.Movies.Include(x => x.Genre).ToList();
             }
         }
 
@@ -32,7 +35,7 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                return db.Movies.FirstOrDefault(x => x.Id == id);
+                return db.Movies.Include(x => x.Genre).FirstOrDefault(x => x.Id == id);
             }
         }
 

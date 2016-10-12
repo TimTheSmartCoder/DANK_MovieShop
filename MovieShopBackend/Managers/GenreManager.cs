@@ -39,7 +39,9 @@ namespace MovieShopBackend.Managers
         {
             using (MovieShopContext db = new MovieShopContext())
             {
-                return db.Genres.FirstOrDefault(x => x.Id == id);
+                Genre genre = db.Genres.FirstOrDefault(x => x.Id == id);
+
+                return genre;
             }
         }
 
