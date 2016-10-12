@@ -31,7 +31,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Genre genre = _manager.ReadOne((int)id);
+            Genre genre = _manager.ReadOne(id.GetValueOrDefault());
 
             if (genre == null)
                 return HttpNotFound();
@@ -72,7 +72,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                
-            Genre genre = _manager.ReadOne((int)id);
+            Genre genre = _manager.ReadOne(id.GetValueOrDefault());
 
             if (genre == null)
                 return HttpNotFound();
@@ -111,7 +111,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                
-            Genre genre = _manager.ReadOne((int)id);
+            Genre genre = _manager.ReadOne(id.GetValueOrDefault());
 
             if (genre == null)
                 return HttpNotFound();
@@ -127,7 +127,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Genre genre = _manager.ReadOne(id);
+            Genre genre = _manager.ReadOne(id.GetValueOrDefault());
 
             if (genre == null)
                 return HttpNotFound();

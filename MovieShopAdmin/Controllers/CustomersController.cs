@@ -31,7 +31,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Customer customer = _manager.ReadOne((int)id);
+            Customer customer = _manager.ReadOne(id.GetValueOrDefault());
 
             if (customer == null)
                 return HttpNotFound();
@@ -76,7 +76,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
-            Customer customer = _manager.ReadOne((int)id);
+            Customer customer = _manager.ReadOne(id.GetValueOrDefault());
 
             if (customer == null)
                 return HttpNotFound();
@@ -119,7 +119,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Customer customer = _manager.ReadOne((int)id);
+            Customer customer = _manager.ReadOne(id.GetValueOrDefault());
 
             if (customer == null)
                 return HttpNotFound();
@@ -135,7 +135,7 @@ namespace MovieShopAdmin.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Customer customer = _manager.ReadOne((int)id);
+            Customer customer = _manager.ReadOne(id.GetValueOrDefault());
 
             if (customer == null)
                 return HttpNotFound();
