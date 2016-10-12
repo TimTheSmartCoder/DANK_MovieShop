@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
+using MovieShopAdmin.Models.Genres;
 using MovieShopBackend;
 using MovieShopBackend.Contexts;
 using MovieShopBackend.Entities;
@@ -44,15 +46,19 @@ namespace MovieShopAdmin.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Create([Bind(Include = "Name")] GenresCreateViewModel genresCreateViewModel)
         {
             if (ModelState.IsValid)
             {
-                _manager.Create(genre);                
+                //Use AutoMapper to copy properties.
+                Genre genre = Mapper.Map<Genre>(genresCreateViewModel);
+
+                _manager.Create(genre);   
+                             
                 return RedirectToAction("Index");
             }
 
-            return View(genre);
+            return View(genresCreateViewModel);
         }
 
         // GET: Genres/Edit/5
@@ -60,24 +66,35 @@ namespace MovieShopAdmin.Controllers
         {
             
             Genre genre = _manager.ReadOne(id);
+
             if (genre == null)
             {
                 return HttpNotFound();
             }
-            return View(genre);
+
+            //Use Automapper to copy properties.
+            GenresEditViewModel genresEditViewModel = Mapper.Map<GenresEditViewModel>(genre);
+            Mapper.Map(genre, genresEditViewModel);
+
+            return View(genresEditViewModel);
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Edit([Bind(Include = "Id,Name")] GenresEditViewModel genresEditViewModel)
         {
             if (ModelState.IsValid)
             {
-                _manager.Update(genre);               
+                //Use AutoMapper to copy properties.
+                Genre genre = Mapper.Map<Genre>(genresEditViewModel);
+
+                _manager.Update(genre);
+
                 return RedirectToAction("Index");
             }
-            return View(genre);
+
+            return View(genresEditViewModel);
         }
 
         // GET: Genres/Delete/5
