@@ -26,14 +26,16 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Customers/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            
-            Customer customer = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Customer customer = _manager.ReadOne((int)id);
+
             if (customer == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(customer);
         }
 
@@ -50,6 +52,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] CustomersCreateViewModel postCustomersCreateViewModel)
         {
+            if (postCustomersCreateViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties from ViewModel to Entities.
@@ -66,14 +71,15 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Customers/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             
-            Customer customer = _manager.ReadOne(id);
+            Customer customer = _manager.ReadOne((int)id);
+
             if (customer == null)
-            {
                 return HttpNotFound();
-            }
 
             //Map our information from entities to ViewModel.
             CustomerEditViewModel postCustomerEditViewModel = Mapper.Map<CustomerEditViewModel>(customer);
@@ -89,6 +95,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] CustomerEditViewModel postCustomerEditViewModel)
         {
+            if (postCustomerEditViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties from ViewModel to Entities.
@@ -105,24 +114,34 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Customers/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            
-            Customer customer = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Customer customer = _manager.ReadOne((int)id);
+
             if (customer == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(customer);
         }
 
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            Customer customer = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Customer customer = _manager.ReadOne((int)id);
+
+            if (customer == null)
+                return HttpNotFound();
+
             _manager.Delete(customer.Id);
+
             return RedirectToAction("Index");
         }
 

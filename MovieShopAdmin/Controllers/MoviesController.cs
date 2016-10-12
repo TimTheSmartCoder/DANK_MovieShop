@@ -29,16 +29,13 @@ namespace MovieShopAdmin.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             Movie movie = this._manager.ReadOne((int)id);
 
             if (movie == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(movie);
         }
 
@@ -59,6 +56,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Title,Year,Price,ImageUrl,Trailer,GenreId")] MoviesCreateViewModel moviesCreateViewModel)
         {
+            if (moviesCreateViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties.
@@ -75,14 +75,15 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Movies/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             Movie movie = this._manager.ReadOne((int) id);
 
             if (movie == null)
-            {
                 return HttpNotFound();
-            }
 
             //Use AutoMapper to copy properties.
             MoviesEditViewModel moviesEditViewModel = Mapper.Map<MoviesEditViewModel>(movie);
@@ -100,6 +101,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Year,Price,ImageUrl,Trailer,GenreId")] MoviesEditViewModel moviesEditViewModel)
         {
+            if (moviesEditViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties.
@@ -119,14 +123,13 @@ namespace MovieShopAdmin.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Movie movie = this._manager.ReadOne((int)id);
+
             if (movie == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(movie);
         }
 

@@ -26,14 +26,16 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Genres/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            
-            Genre genre = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Genre genre = _manager.ReadOne((int)id);
+
             if (genre == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(genre);
         }
 
@@ -48,6 +50,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] GenresCreateViewModel genresCreateViewModel)
         {
+            if (genresCreateViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties.
@@ -62,15 +67,15 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Genres/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            
-            Genre genre = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+               
+            Genre genre = _manager.ReadOne((int)id);
 
             if (genre == null)
-            {
                 return HttpNotFound();
-            }
 
             //Use Automapper to copy properties.
             GenresEditViewModel genresEditViewModel = Mapper.Map<GenresEditViewModel>(genre);
@@ -84,6 +89,9 @@ namespace MovieShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] GenresEditViewModel genresEditViewModel)
         {
+            if (genresEditViewModel == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
                 //Use AutoMapper to copy properties.
@@ -98,24 +106,34 @@ namespace MovieShopAdmin.Controllers
         }
 
         // GET: Genres/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            
-            Genre genre = _manager.ReadOne(id);
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+               
+            Genre genre = _manager.ReadOne((int)id);
+
             if (genre == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(genre);
         }
 
         // POST: Genres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             Genre genre = _manager.ReadOne(id);
+
+            if (genre == null)
+                return HttpNotFound();
+
             _manager.Delete(genre.Id);
+
             return RedirectToAction("Index");
         }
 
