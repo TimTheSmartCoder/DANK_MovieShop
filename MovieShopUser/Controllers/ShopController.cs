@@ -40,6 +40,24 @@ namespace MovieShopUser.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Filtert(int id)
+        {
+            Genre genre = _GenreManager.ReadOne(id);
+
+            if (genre == null) 
+            {
+                return HttpNotFound();
+            }
+
+            GenreMovieViewModel viewModel = new GenreMovieViewModel
+            {
+                Genres = _GenreManager.ReadAll(),
+                Movies = genre.Movies
+            };
+
+            return View("Index", viewModel);
+        }
+
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -51,6 +69,7 @@ namespace MovieShopUser.Controllers
 
             return View(movie);
         }
+
 
 
         private void Populate()
@@ -74,7 +93,7 @@ namespace MovieShopUser.Controllers
 
             _movieManager.Create(new Movie
             {
-                Genre = _GenreManager.ReadOne(1),
+                Genre = _GenreManager.ReadOne(2),
                 Id = 2,               
                 ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
                 Title = "A Smashing Experience",
@@ -86,7 +105,7 @@ namespace MovieShopUser.Controllers
 
             _movieManager.Create(new Movie
             {
-                Genre = _GenreManager.ReadOne(1),
+                Genre = _GenreManager.ReadOne(3),
                 Id = 3,
                 ImageUrl = "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
                 Title = "Isengard Tour Guid!",
