@@ -21,13 +21,13 @@ namespace MovieShopAdmin
             //SETUP OFF AUTOMAPPER TO ONLY LOAD MAPPING INFORMATION ONE TIME - BEGIN.
             Mapper.Initialize(config =>
             {
-                config.CreateMap<MovieShopAdmin.Models.Customers.PostCustomersCreateViewModel, MovieShopBackend.Entities.Customer>();
-                config.CreateMap<MovieShopAdmin.Models.Customers.PostCustomersCreateViewModel, MovieShopBackend.Entities.Address>();
+                config.CreateMap<MovieShopAdmin.Models.Customers.CustomersCreateViewModel, MovieShopBackend.Entities.Customer>();
+                config.CreateMap<MovieShopAdmin.Models.Customers.CustomersCreateViewModel, MovieShopBackend.Entities.Address>();
 
-                config.CreateMap<MovieShopAdmin.Models.Customers.PostCustomerEditViewModel, MovieShopBackend.Entities.Customer>();
-                config.CreateMap<MovieShopAdmin.Models.Customers.PostCustomerEditViewModel, MovieShopBackend.Entities.Address>();
-                config.CreateMap<MovieShopBackend.Entities.Customer, MovieShopAdmin.Models.Customers.PostCustomerEditViewModel>();
-                config.CreateMap<MovieShopBackend.Entities.Address, MovieShopAdmin.Models.Customers.PostCustomerEditViewModel>();
+                config.CreateMap<MovieShopAdmin.Models.Customers.CustomerEditViewModel, MovieShopBackend.Entities.Customer>();
+                config.CreateMap<MovieShopAdmin.Models.Customers.CustomerEditViewModel, MovieShopBackend.Entities.Address>();
+                config.CreateMap<MovieShopBackend.Entities.Customer, MovieShopAdmin.Models.Customers.CustomerEditViewModel>();
+                config.CreateMap<MovieShopBackend.Entities.Address, MovieShopAdmin.Models.Customers.CustomerEditViewModel>();
             });
             //SETUP OFF AUTOMAPPER TO ONLY LOAD MAPPING INFORMATION ONE TIME - END.
         }

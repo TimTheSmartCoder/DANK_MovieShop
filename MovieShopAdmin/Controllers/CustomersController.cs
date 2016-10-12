@@ -48,7 +48,7 @@ namespace MovieShopAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] PostCustomersCreateViewModel postCustomersCreateViewModel)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] CustomersCreateViewModel postCustomersCreateViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace MovieShopAdmin.Controllers
             }
 
             //Map our information from entities to ViewModel.
-            PostCustomerEditViewModel postCustomerEditViewModel = Mapper.Map<PostCustomerEditViewModel>(customer);
+            CustomerEditViewModel postCustomerEditViewModel = Mapper.Map<CustomerEditViewModel>(customer);
             postCustomerEditViewModel = Mapper.Map(customer.Address, postCustomerEditViewModel);
 
             return View(postCustomerEditViewModel);
@@ -87,7 +87,7 @@ namespace MovieShopAdmin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] PostCustomerEditViewModel postCustomerEditViewModel)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,StreetName,StreetNumber,Country,ZipCode")] CustomerEditViewModel postCustomerEditViewModel)
         {
             if (ModelState.IsValid)
             {

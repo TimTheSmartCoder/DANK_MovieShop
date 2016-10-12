@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MovieShopAdmin.Models.Customers
 {
-    public class PostCustomersCreateViewModel
+    public class CustomersCreateViewModel
     {
         /// <summary>
         /// Customer Entity.
