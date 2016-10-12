@@ -1,7 +1,31 @@
-﻿
+﻿@using System.Activities.Statements
+@using MovieShopBackend.Entities
+@model MovieShopBackend.Entities.Movie
+
 @{
     ViewBag.Title = "MovieDetails";
 }
 
-<h2>MovieDetails</h2>
+<center>
+
+    <h2>@Model.Title</h2>
+
+    <main class="container">
+        <section class="filmes">
+
+
+            <div class="card-block" style="text-align:center">
+                <div class="img-card" style="text-align:center">
+                    <img src="@Model.ImageUrl" alt="Movie" style="max-width: 450px; height: 700px" />
+                </div>
+                <p class="tagline card-text text-xs-center" style="text-align:center">Genre: @Model.Genre<br />Year: @Model.Year <br />Price: @Model.Price</p>
+                <a href="" class="btn btn-primary btn-block"><i class="fa fa-eye" style="text-align:center"></i> Order Now </a>
+            </div>
+
+
+        </section>
+    </main>
+</center>
+
+
 
