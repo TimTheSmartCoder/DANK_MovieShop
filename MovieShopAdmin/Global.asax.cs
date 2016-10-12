@@ -37,6 +37,13 @@ namespace MovieShopAdmin
                 config.CreateMap<MovieShopBackend.Entities.Genre, MovieShopAdmin.Models.Genres.GenresCreateViewModel>();
                 config.CreateMap<MovieShopBackend.Entities.Genre, MovieShopAdmin.Models.Genres.GenresEditViewModel>();
                 //Genres mapping end.
+
+                //Movies mapping begin.
+                config.CreateMap<MovieShopAdmin.Models.Movies.MoviesCreateViewModel, MovieShopBackend.Entities.Movie>();
+                config.CreateMap<MovieShopAdmin.Models.Movies.MoviesEditViewModel, MovieShopBackend.Entities.Movie>();
+                config.CreateMap<MovieShopBackend.Entities.Movie, MovieShopAdmin.Models.Movies.MoviesCreateViewModel>();
+                config.CreateMap<MovieShopBackend.Entities.Movie, MovieShopAdmin.Models.Movies.MoviesEditViewModel>();
+                //Movies mapping end.
             });
             //SETUP OFF AUTOMAPPER TO ONLY LOAD MAPPING INFORMATION ONE TIME - END.
         }
