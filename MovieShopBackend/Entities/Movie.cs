@@ -9,21 +9,14 @@ namespace MovieShopBackend.Entities
 {
     public class Movie : AbstractEntity
     {
-        [Required]
         public string Title { get; set; }
 
-        [Required]
-        [Range(0, 3000)]
         public int Year { get; set; }
 
-        [Required]
         public double Price { get; set; }
 
-        [Required]
-        [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; }
 
-        [Required]
         public string Trailer { get; set; }
 
         public int GenreId { get; set; }

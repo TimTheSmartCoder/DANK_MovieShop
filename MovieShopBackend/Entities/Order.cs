@@ -9,7 +9,6 @@ namespace MovieShopBackend.Entities
 {
     public class Order : AbstractEntity
     {
-        [Required]
         public DateTime Date { get; set; }
 
         public List<Movie> Movies { get; set; }
