@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,13 +9,71 @@ using MovieShopBackend.Entities;
 
 namespace MovieShopBackend.Contexts
 {
+    public class MovieShopInitializer : DropCreateDatabaseAlways<MovieShopContext>
+    {
+        
+        protected override void Seed(MovieShopContext context)
+        {
+            IList<Genre> genres = new List<Genre>();
+            IList<Movie> movies =new List<Movie>();
+
+            genres.Add(new Genre
+            {
+                Name = "Action"
+            });
+            genres.Add(new Genre
+            {
+                Name = "DickJokes"
+            });
+
+
+            movies.Add(new Movie
+            {
+               
+                GenreId = 1,
+                Id = 1,
+                ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
+                Title = "A Smashing Experience",
+                Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
+                Price = 100000,
+                Year = 2016
+
+            });
+
+            movies.Add(new Movie
+            {
+               
+                GenreId = 2,
+                Id = 2,
+                ImageUrl = "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
+                Title = "Isengard Tour Guid!",
+                Trailer = "https://www.youtube.com/watch?v=uE-1RPDqJAY",
+                Price = 100000,
+                Year = 2016
+            });
+
+            foreach (Genre genre in genres)
+            {
+                context.Set<Genre>().Add(genre);
+                
+            }
+            foreach (Movie movie in movies)
+            {
+                context.Set<Movie>().Add(movie);
+            }
+
+            
+
+            base.Seed(context);
+        }
+    }
     public class MovieShopContext : DbContext
     {
         public MovieShopContext() : base()
         {
-            Database.SetInitializer<MovieShopContext>(new DropCreateDatabaseAlways<MovieShopContext>());
+            Database.SetInitializer<MovieShopContext>(new MovieShopInitializer());
         }
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Create one-to-one relationship between Customer and Address.

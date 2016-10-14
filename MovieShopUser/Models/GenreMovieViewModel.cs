@@ -11,6 +11,7 @@ namespace MovieShopUser.Models
         public List<Movie> Movies { get; set; }
         public List<Genre> Genres { get; set; }
         public Movie Movie { get; set; }
+        public Genre SelectedGenre { get; set; }
 
     }
 }

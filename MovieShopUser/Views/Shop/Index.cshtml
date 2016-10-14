@@ -8,7 +8,23 @@
 
 <main class="container">
     <section class="filmes" id="filmes">
-        <h2>All Movies</h2>
+        <h2>Movies: @Model.SelectedGenre.Name</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: black;  text-decoration: none">Genres <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Shop")">All</a></li>
+                            @foreach (Genre genre in Model.Genres)
+                            {
+                                <li><a href="@Url.Action("Filtert", "Shop", new {id = genre.Id})">@genre.Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
         @foreach (Movie movie in Model.Movies)
         {
             <div class="span">
