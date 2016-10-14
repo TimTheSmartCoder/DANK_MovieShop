@@ -36,6 +36,9 @@ body {padding-top: 80px;}
 .footer a {font-weight: 500; color: inherit;}
 .footer-links li + li {margin-left: 1rem;}
 
+body{background:url("http://monthlybrands.com.pk/wp-content/uploads/2016/08/cinema-cartoon.jpg"); background-size: cover;}
 .link:hover {
 text-decoration: none;
 }
+
+
