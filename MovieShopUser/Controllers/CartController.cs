@@ -24,21 +24,15 @@ namespace MovieShopUser.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-<<<<<<< HEAD
-            movieManager = facade.GetMovieManager();
-            if (Session["Manager"] == null)
-=======
             
-            Session["Manager"] = manager;
-            manager.Add(new Movie
->>>>>>> 0576ae7f1e050aa7cf30b261b278f8a9b2dd5d5a
+            if (Session["Manager"] == null)
             {
                 manager = new CartManager();
                 Session["Manager"] = manager;
 
                 manager.Add(new Movie
                 {
-                    Genre = new Genre {Name = "Action"},
+                    Genre = new Genre { Name = "Action" },
                     Id = 1,
                     ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
                     Title = "A Smashing Experience",
@@ -50,7 +44,7 @@ namespace MovieShopUser.Controllers
 
                 manager.Add(new Movie
                 {
-                    Genre = new Genre {Name = "Action"},
+                    Genre = new Genre { Name = "Action" },
                     Id = 2,
                     ImageUrl =
                         "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
@@ -60,8 +54,9 @@ namespace MovieShopUser.Controllers
                     Year = 2016
                 });
             }
-            else
-            {
+            
+    else
+    {
                 manager = (CartManager) Session["Manager"];
             }
 
