@@ -43,6 +43,7 @@ namespace MovieShopUser.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public ActionResult Filtert(int id)
         {
             Genre genre = _GenreManager.ReadOne(id);
