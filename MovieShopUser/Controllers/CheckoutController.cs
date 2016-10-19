@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using MovieShopBackend;
 using MovieShopBackend.Entities;
+using MovieShopUser.Models.Cart;
 using MovieShopUser.Models.Checkout;
 
 namespace MovieShopUser.Controllers
@@ -91,7 +92,7 @@ namespace MovieShopUser.Controllers
 
                     //TEMPORARY -------
                     List<Movie> movies = new List<Movie>();
-                    foreach (var movie in new ManagerFacade().GetMovieManager().ReadAll())
+                    foreach (var movie in new ShoppingCart(this.HttpContext).GetMoviesInCart())
                     {
                         movie.Orders = null;
                         movies.Add(movie);
@@ -114,7 +115,7 @@ namespace MovieShopUser.Controllers
                     
                     //TEMPORARY -------
                     List<Movie> movies = new List<Movie>();
-                    foreach (var movie in new ManagerFacade().GetMovieManager().ReadAll())
+                    foreach (var movie in new ShoppingCart(this.HttpContext).GetMoviesInCart())
                     {
                         movie.Orders = null;
                         movies.Add(movie);
