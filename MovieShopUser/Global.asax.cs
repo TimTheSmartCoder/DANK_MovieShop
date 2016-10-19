@@ -16,6 +16,24 @@ namespace MovieShopUser
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //AutoMapper configuration begin.
+            AutoMapper.Mapper.Initialize(config =>
+            {
+                config
+                    .CreateMap
+                    <MovieShopBackend.Entities.Customer, MovieShopUser.Models.Checkout.CheckoutProcessViewModel>();
+                config
+                    .CreateMap
+                    <MovieShopBackend.Entities.Address, MovieShopUser.Models.Checkout.CheckoutProcessViewModel>();
+                config
+                    .CreateMap
+                    <MovieShopUser.Models.Checkout.CheckoutProcessViewModel, MovieShopBackend.Entities.Customer>();
+                config
+                    .CreateMap
+                    <MovieShopUser.Models.Checkout.CheckoutProcessViewModel, MovieShopBackend.Entities.Address>();
+            });
+            //AutoMapper configuration end.
         }
     }
 }
