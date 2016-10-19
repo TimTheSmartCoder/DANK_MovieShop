@@ -41,7 +41,7 @@ namespace MovieShopBackend.Contexts
                 GenreId = 1,               
                 ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
                 Title = "A Smashing Experience",
-                Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
+                Trailer = "https://www.youtube.com/embed/MQqFuGMCaT4",
                 Price = 100000,
                 Year = 2016
 
@@ -53,7 +53,7 @@ namespace MovieShopBackend.Contexts
                 GenreId = 2,                
                 ImageUrl = "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
                 Title = "Isengard Tour Guid!",
-                Trailer = "https://www.youtube.com/watch?v=uE-1RPDqJAY",
+                Trailer = "https://www.youtube.com/embed/uE-1RPDqJAY",
                 Price = 100000,
                 Year = 2016
             });
@@ -62,7 +62,7 @@ namespace MovieShopBackend.Contexts
                 GenreId = 3,
                 ImageUrl = "https://i1.sndcdn.com/avatars-000174643992-6l0gyv-t500x500.jpg",
                 Title = "A Normaly day in Japan",
-                Trailer = "https://www.youtube.com/watch?v=GKqWButuYk0",
+                Trailer = "https://www.youtube.com/embed/GKqWButuYk0",
                 Price = 999999,
                 Year = 2016
             });
@@ -71,7 +71,7 @@ namespace MovieShopBackend.Contexts
                 GenreId = 4,
                 ImageUrl = "http://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/large/public/2015/09/11/mama-june.jpg",
                 Title = "An Amarican Story",
-                Trailer = "https://www.youtube.com/watch?v=xmd1b2Lf6yU",
+                Trailer = "https://www.youtube.com/embed/xmd1b2Lf6yU",
                 Price = 0.001,
                 Year = 2014
 
