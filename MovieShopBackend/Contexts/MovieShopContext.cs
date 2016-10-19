@@ -96,7 +96,7 @@ namespace MovieShopBackend.Contexts
     {
         public MovieShopContext() : base()
         {
-            Database.SetInitializer<MovieShopContext>(new MovieShopInitializer());
+            Database.SetInitializer<MovieShopContext>(new CreateDatabaseIfNotExists<MovieShopContext>());
         }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
