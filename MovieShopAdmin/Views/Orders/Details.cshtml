@@ -19,60 +19,52 @@
         </dd>
 
         <dt>@Html.DisplayNameFor(model => model.Movies)</dt>
-        <dl><table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Title
-        </th>
-        <th>
-            Year
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Trailer
-        </th>
-        <th>Edit</th>
-        <th>Details</th>
-        <th>Delete</th>
-    </tr>
+        <dl>
+            <table class="table">
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Trailer
+                    </th>
+                </tr>
 
-    @foreach (var item in Model.Movies)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
+                @foreach (var item in Model.Movies)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Trailer)
-            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Trailer)
+                        </td>
+                    </tr>
+                }
 
-            <td style="width: 70px;">
-            </td>
-            <td style="width: 70px;">
-            </td>
-            <td style="width: 70px;">
-            </td>
-        </tr>
-    }
-
-</table></dl>
+            </table>
+        </dl>
     </dl>
 </div>
 <p>

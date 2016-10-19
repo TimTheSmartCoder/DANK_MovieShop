@@ -28,7 +28,7 @@
         </div>
         @foreach (Movie movie in Model.Movies)
             {
-            <div class="span">
+            <div class="span" style="margin-bottom: 20px;">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <a class="link" href="@Url.Action("Details", "Shop", new {id = movie.Id})">
                         <article class="card">
