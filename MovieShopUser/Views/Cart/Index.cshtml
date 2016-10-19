@@ -44,5 +44,12 @@
         </tr>
         <tr style="height: 10px"></tr>
     }
-
+    @if (Model.Movies.Any())
+    {
+        <tr><td colspan="3" style="background-color: white;"><a href="@Url.Action("Index", "Checkout")" style="float: right;" class="btn btn-primary">Checkout</a></td></tr>
+    }
+    else
+    {
+        <tr><td style="background-color: white;" colspan="3"> Your shopping cart is empty!</td></tr>
+    }
 </table>
