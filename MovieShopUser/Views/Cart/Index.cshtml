@@ -44,9 +44,11 @@
         </tr>
         <tr style="height: 10px"></tr>
     }
+    
+
     @if (Model.Movies.Any())
     {
-        <tr><td colspan="3" style="background-color: white;"><a href="@Url.Action("Index", "Checkout")" style="float: right;" class="btn btn-primary">Checkout</a></td></tr>
+        <tr><td colspan="3" style="background-color: white;"><span style="padding-top: 20px; font-weight: bold;">Total: @Model.Total</span> <a href="@Url.Action("Index", "Checkout")" style="float: right;" class="btn btn-primary">Checkout</a></td></tr>
     }
     else
     {

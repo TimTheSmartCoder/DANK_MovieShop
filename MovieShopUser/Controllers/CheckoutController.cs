@@ -89,10 +89,11 @@ namespace MovieShopUser.Controllers
                 if (checkoutProcessViewModel.Id == -1)
                 {
                     Customer c = this._customerManager.Create(customer);
+                    ShoppingCart shoppingCart = new ShoppingCart(this.HttpContext);
 
                     //TEMPORARY -------
                     List<Movie> movies = new List<Movie>();
-                    foreach (var movie in new ShoppingCart(this.HttpContext).GetMoviesInCart())
+                    foreach (var movie in shoppingCart.GetMoviesInCart())
                     {
                         movie.Orders = null;
                         movies.Add(movie);
@@ -107,15 +108,17 @@ namespace MovieShopUser.Controllers
                     };
 
                     this._OrderManager.Create(order);
+                    shoppingCart.ClearCart();
                 }
                 else
                 {
                     Customer c = this._customerManager.Update(customer);
                     c.Address = this._addressManager.Update(customer.Address);
-                    
+                    ShoppingCart shoppingCart = new ShoppingCart(this.HttpContext);
+
                     //TEMPORARY -------
                     List<Movie> movies = new List<Movie>();
-                    foreach (var movie in new ShoppingCart(this.HttpContext).GetMoviesInCart())
+                    foreach (var movie in shoppingCart.GetMoviesInCart())
                     {
                         movie.Orders = null;
                         movies.Add(movie);
@@ -130,6 +133,7 @@ namespace MovieShopUser.Controllers
                     };
 
                     this._OrderManager.Create(order);
+                    shoppingCart.ClearCart();
                 }
                 
                 return RedirectToAction("Success");

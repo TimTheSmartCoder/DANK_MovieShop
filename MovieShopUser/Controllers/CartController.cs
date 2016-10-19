@@ -20,9 +20,16 @@ namespace MovieShopUser.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+            List<Movie> movies = new ShoppingCart(this.HttpContext).GetMoviesInCart();
+            double total = 0;
+
+            foreach (var movie in movies)
+                total += movie.Price;
+
             CartViewModel model = new CartViewModel()
             {
-                Movies = new ShoppingCart(this.HttpContext).GetMoviesInCart()
+                Movies = movies,
+                Total = total
             };
             return View(model);
         }

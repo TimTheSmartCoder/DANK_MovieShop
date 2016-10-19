@@ -33,6 +33,11 @@ namespace MovieShopUser.Models.Cart
             }
         }
 
+        public void ClearCart()
+        {
+            ((List<Movie>)_context.Session[_key]).Clear();
+        }
+
         public void DeleteFromCart(int id)
         {
             ((List<Movie>) _context.Session[_key]).RemoveAll(x => x.Id == id);

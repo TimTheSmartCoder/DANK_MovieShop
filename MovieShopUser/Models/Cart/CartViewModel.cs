@@ -10,6 +10,8 @@ namespace MovieShopUser.Models.Cart
     {
         private List<Movie> _movies;
 
+        public double Total { get; set; }
+
         public List<Movie> Movies
         {
             get { return _movies; }
