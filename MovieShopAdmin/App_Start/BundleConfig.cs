@@ -30,7 +30,6 @@ namespace MovieShopAdmin
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/metisMenu.js",
                       "~/Scripts/raphael.js",
                       "~/Scripts/morris.js",
                       "~/Scripts/sb-admin-2.js"
