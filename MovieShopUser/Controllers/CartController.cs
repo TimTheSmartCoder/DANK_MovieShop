@@ -17,76 +17,50 @@ namespace MovieShopUser.Controllers
         private ManagerFacade facade = new ManagerFacade();
         private IManager<Movie> movieManager = new ManagerFacade().GetMovieManager();
 
-
-        private CartManager manager;
-
-
         // GET: Cart
         public ActionResult Index()
         {
-            
-            if (Session["Manager"] == null)
-            {
-                manager = new CartManager();
-                Session["Manager"] = manager;
-
-                manager.Add(new Movie
-                {
-                    Genre = new Genre { Name = "Action" },
-                    Id = 1,
-                    ImageUrl = "http://i.imgur.com/Fh6xlbF.jpg",
-                    Title = "A Smashing Experience",
-                    Trailer = "https://www.youtube.com/watch?v=MQqFuGMCaT4",
-                    Price = 100000,
-                    Year = 2016
-
-                });
-
-                manager.Add(new Movie
-                {
-                    Genre = new Genre { Name = "Action" },
-                    Id = 2,
-                    ImageUrl =
-                        "http://images2.fanpop.com/images/photos/7500000/Legolas-the-elves-of-middle-earth-7510893-477-406.jpg",
-                    Title = "Isengard Tour Guid!",
-                    Trailer = "https://www.youtube.com/watch?v=uE-1RPDqJAY",
-                    Price = 100000,
-                    Year = 2016
-                });
-            }
-            
-    else
-    {
-                manager = (CartManager) Session["Manager"];
-            }
-
             CartViewModel model = new CartViewModel()
             {
-                Movies = manager.Movies
+                Movies = new ShoppingCart(this.HttpContext).GetMoviesInCart()
             };
             return View(model);
         }
+
+        
 
 
         [ActionName("Add")]
         public ActionResult AddMovie(string prevUrl, int id)
         {
-            Movie m = movieManager.ReadOne(id);
-            if (m != null)
+            if (!IsRented(id))
             {
-                manager.Add(m);
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Movie m = movieManager.ReadOne(id);
+                if (m != null)
+                {
+                    new ShoppingCart(this.HttpContext).AddMovieToCart(m);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             return Redirect(prevUrl);
         }
 
         public ActionResult Delete(int id)
         {
-            manager.Delete(id);
+            new ShoppingCart(this.HttpContext).DeleteFromCart(id);
             return RedirectToAction("Index");
+        }
+
+        public bool IsRented(int id)
+        {
+            if (new ShoppingCart(this.HttpContext).GetMoviesInCart().FirstOrDefault(x => x.Id == id) != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

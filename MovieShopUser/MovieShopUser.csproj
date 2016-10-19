@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Models\Cart\CartManager.cs" />
     <Compile Include="Models\Cart\CartViewModel.cs" />
+    <Compile Include="Models\Cart\ShoppingCart.cs" />
     <Compile Include="Models\GenreMovieViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
