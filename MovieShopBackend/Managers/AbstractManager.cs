@@ -21,7 +21,7 @@ namespace MovieShopBackend.Managers
         protected AbstractManager() { }
 
 
-        public T Create(T entity)
+        public virtual T Create(T entity)
         {
             if (entity == null)
                 throw new ArgumentNullException($"The given {typeof(T).Name} can't be null");

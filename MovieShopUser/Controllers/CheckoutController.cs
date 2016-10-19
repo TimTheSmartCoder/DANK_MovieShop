@@ -92,19 +92,19 @@ namespace MovieShopUser.Controllers
                     ShoppingCart shoppingCart = new ShoppingCart(this.HttpContext);
 
                     //TEMPORARY -------
-                    List<Movie> movies = new List<Movie>();
-                    foreach (var movie in shoppingCart.GetMoviesInCart())
-                    {
-                        movie.Orders = null;
-                        movies.Add(movie);
-                    }
+                    //List<Movie> movies = new List<Movie>();
+                    //foreach (var movie in shoppingCart.GetMoviesInCart())
+                    //{
+                    //    movie.Orders = null;
+                    //    movies.Add(movie);
+                    //}
                     //TEMPORARY -------
 
                     Order order = new Order()
                     {
                         CustomerId = c.Id,
                         Date = DateTime.Now,
-                        Movies = movies
+                        Movies = shoppingCart.GetMoviesInCart()
                     };
 
                     this._OrderManager.Create(order);
@@ -117,19 +117,19 @@ namespace MovieShopUser.Controllers
                     ShoppingCart shoppingCart = new ShoppingCart(this.HttpContext);
 
                     //TEMPORARY -------
-                    List<Movie> movies = new List<Movie>();
-                    foreach (var movie in shoppingCart.GetMoviesInCart())
-                    {
-                        movie.Orders = null;
-                        movies.Add(movie);
-                    }
+                    //List<Movie> movies = new List<Movie>();
+                    //foreach (var movie in shoppingCart.GetMoviesInCart())
+                    //{
+                    //    movie.Orders = null;
+                    //    movies.Add(movie);
+                    //}
                     //TEMPORARY -------
 
                     Order order = new Order()
                     {
                         CustomerId = c.Id,
                         Date = DateTime.Now,
-                        Movies = movies
+                        Movies = shoppingCart.GetMoviesInCart()
                     };
 
                     this._OrderManager.Create(order);

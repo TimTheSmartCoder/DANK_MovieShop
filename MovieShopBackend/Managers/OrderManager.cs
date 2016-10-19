@@ -11,6 +11,21 @@ namespace MovieShopBackend.Managers
 {
     class OrderManager : AbstractManager<Order>
     {
+        public override Order Create(Order order)
+        {
+            using (MovieShopContext context = new MovieShopContext())
+            {
+                if (order != null && order.Movies != null)
+                    foreach (var orderMovie in order.Movies)
+                        context.Set<Movie>().Attach(orderMovie);
+                
+                context.Set<Order>().Add(order);
+                context.SaveChanges();
+
+                return order;
+            }
+        }
+
         protected override List<Order> ReadAll(MovieShopContext movieShopContext)
         {
             return movieShopContext.Set<Order>()

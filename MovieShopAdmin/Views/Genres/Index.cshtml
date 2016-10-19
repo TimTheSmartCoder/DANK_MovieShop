@@ -37,9 +37,13 @@
         <td style="width: 70px;">
             <a href="@Url.Action("Details", "Genres", new {id = item.Id})" class="btn btn-info"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
         </td>
-        <td style="width: 70px;">
-            <a href="@Url.Action("Delete", "Genres", new {id = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-        </td>
+        @if (!item.Movies.Any()) { 
+            <td style="width: 70px;">
+                <a href="@Url.Action("Delete", "Genres", new {id = item.Id})" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </td>
+        } else {
+            <td style="width: 70px;">Movie are using it.</td>
+        }
     </tr>
 }
 

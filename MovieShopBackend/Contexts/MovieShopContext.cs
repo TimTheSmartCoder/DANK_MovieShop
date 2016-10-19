@@ -107,19 +107,22 @@ namespace MovieShopBackend.Contexts
 
             modelBuilder.Entity<Customer>()
                 .HasRequired(customer => customer.Address)
-                .WithRequiredPrincipal(address => address.Customer);
+                .WithRequiredPrincipal(address => address.Customer)
+                .WillCascadeOnDelete(true);
 
             //Create one-to-many relationship between Order and Customer.
             modelBuilder.Entity<Order>()
                 .HasRequired<Customer>(order => order.Customer)
                 .WithMany(customer => customer.Order)
-                .HasForeignKey(order => order.CustomerId);
+                .HasForeignKey(order => order.CustomerId)
+                .WillCascadeOnDelete(true);
 
             //Create one-to-many relationship between Movie and Genre.
             modelBuilder.Entity<Movie>()
                 .HasRequired<Genre>(movie => movie.Genre)
                 .WithMany(genre => genre.Movies)
-                .HasForeignKey(movie => movie.GenreId);
+                .HasForeignKey(movie => movie.GenreId)
+                .WillCascadeOnDelete(true);
 
             //Create many-to-many relationship between Movie and Orders.
             modelBuilder.Entity<Movie>()
